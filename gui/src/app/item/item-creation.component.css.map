@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,IAAE;EACA,UAAU,EAAE,GAAG;AAIf,mFAA+B;EAC7B,MAAM,EAAE,aAAa",
+"sources": ["item-creation.component.scss"],
+"names": [],
+"file": "item-creation.component.css"
+}
