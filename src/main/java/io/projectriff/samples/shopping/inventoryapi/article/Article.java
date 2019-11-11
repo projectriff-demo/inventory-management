@@ -3,6 +3,7 @@ package io.projectriff.samples.shopping.inventoryapi.article;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class Article {
   private final String description;
   private final BigDecimal priceInUsd;
 
+  @PersistenceConstructor
   @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
   public Article(@JsonProperty("sku") String sku,
                  @JsonProperty("name") String name,

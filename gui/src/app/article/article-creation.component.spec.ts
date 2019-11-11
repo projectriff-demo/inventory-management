@@ -9,8 +9,8 @@ import {Router} from "@angular/router";
 
 describe('ArticleCreationComponent', () => {
   let component: ArticleCreationComponent;
-  let dom;
   let fixture: ComponentFixture<ArticleCreationComponent>;
+  let dom;
   let articleServiceSpy: jasmine.SpyObj<ArticleService>;
   const routerStub = {
     navigate: jasmine.createSpy('navigate')
@@ -70,7 +70,7 @@ describe('ArticleCreationComponent', () => {
       form.querySelector('.button').click();
 
       expect(articleServiceSpy.save).toHaveBeenCalledWith(expectedArticle);
-      expect(routerStub.navigate).toHaveBeenCalledWith(['/'], {replaceUrl: true});
+      expect(routerStub.navigate).toHaveBeenCalledWith(['/list'], {replaceUrl: true});
     });
 
     it('should reject an empty SKU', () => {

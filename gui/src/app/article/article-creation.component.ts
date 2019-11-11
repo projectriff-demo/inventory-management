@@ -33,7 +33,7 @@ export class ArticleCreationComponent implements OnInit, OnDestroy {
   onSubmit(value: any) {
     if (this.creationForm.valid) {
       this.subscription = this.articleService.save(value).subscribe(() => {
-        this.router.navigate(['/'], { replaceUrl: true });
+        this.router.navigate(['/list'], { replaceUrl: true });
       });
     }
   }
