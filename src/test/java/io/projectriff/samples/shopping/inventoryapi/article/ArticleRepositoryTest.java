@@ -47,6 +47,17 @@ class ArticleRepositoryTest {
   }
 
   @Test
+  @DisplayName("Deletes articles by SKU")
+  void deletes_article_by_sku() {
+    jdbcHelper.save(article);
+    jdbcHelper.save(otherArticle);
+
+    repository.deleteBySku(article.getSku());
+
+    assertThat(repository.findAll()).containsExactly(otherArticle);
+  }
+
+  @Test
   @DisplayName("Blows up if persisting an article with an existing SKU")
   void fails_persisting_duplicate_sku() {
     jdbcHelper.save(article);

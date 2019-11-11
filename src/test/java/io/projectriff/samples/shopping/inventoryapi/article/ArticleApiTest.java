@@ -9,12 +9,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -23,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
+@Transactional
 class ArticleApiTest {
 
   private final ObjectMapper objectMapper = new ObjectMapper();
@@ -68,5 +71,16 @@ class ArticleApiTest {
         "  }\n" +
         "}", objectMapper.writeValueAsString(articles))));
 
+  }
+
+  @Test
+  @DisplayName("deletes articles via API")
+  void deletes_articles() throws Exception {
+    Article article1 = new Article("sku 1", "name 1", "description 1", BigDecimal.ONE);
+    Article article2 = new Article("sku 2", "name 2", "description 2", BigDecimal.TEN);
+    Arrays.asList(article1, article2).forEach(jdbcHelper::save);
+
+    mockMvc.perform(delete("/api/article/?sku={sku}", article1.getSku()))
+      .andExpect(status().isNoContent());
   }
 }

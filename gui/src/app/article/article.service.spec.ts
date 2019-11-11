@@ -8,13 +8,13 @@ describe('ArticleService', () => {
   let httpMock: HttpTestingController;
   let service: ArticleService;
   const article1 = {
-    sku: 'SKU1',
+    sku: 'a SKU1',
     name: 'name1',
     description: 'description1',
     priceInUsd: 1
   } as Article;
   const article2 = {
-    sku: 'SKU2',
+    sku: 'a SKU2',
     name: 'name2',
     description: 'description2',
     priceInUsd: 2
@@ -64,10 +64,11 @@ describe('ArticleService', () => {
   });
 
   it('should list available articles', (done) => {
-    service.findAll().subscribe((articles) => {
+    service.articles$.subscribe((articles) => {
       expect(articles).toEqual([article1, article2]);
       done();
     });
+    service.findAll();
 
     const req = httpMock.expectOne(`/api/article/`);
     expect(req.request.method).toBe("GET");
@@ -113,6 +114,24 @@ describe('ArticleService', () => {
       headers: {
         'Content-Type': 'application/hal+json'
       }
+    });
+  });
+
+  it('should delete a specific article by sku', (done) => {
+    const sku = article1.sku;
+    service.articles$.subscribe((_) => {
+      done();
+    });
+    service.deleteBySku(sku);
+
+    const req = httpMock.expectOne(req => req.method === 'DELETE' && req.url === '/api/article');
+    expect(req.request.params.get('sku')).toEqual(sku);
+    req.flush(null, {
+      headers: {
+        'Content-Type': 'application/hal+json'
+      },
+      status: 204,
+      statusText: 'No content'
     });
   });
 });
