@@ -1,4 +1,4 @@
-export interface Item {
+export interface Article {
   sku: string;
   name: string;
   description: string;

@@ -3,4 +3,4 @@ form {
 form input.ng-invalid:not(.ng-pristine), form textarea.ng-invalid:not(.ng-pristine) {
   border: 2px solid red; }
 
-/*# sourceMappingURL=item-creation.component.css.map */
+/*# sourceMappingURL=article-creation.component.css.map */

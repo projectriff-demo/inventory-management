@@ -1,22 +1,22 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ItemService} from './item.service';
+import {ArticleService} from './article.service';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-item-creation',
-  templateUrl: './item-creation.component.html',
-  styleUrls: ['./item-creation.component.scss']
+  selector: 'app-article-creation',
+  templateUrl: './article-creation.component.html',
+  styleUrls: ['./article-creation.component.scss']
 })
-export class ItemCreationComponent implements OnInit, OnDestroy {
+export class ArticleCreationComponent implements OnInit, OnDestroy {
 
   creationForm;
 
   private subscription: Subscription = null;
 
   constructor(private formBuilder: FormBuilder,
-              private itemService: ItemService,
+              private articleService: ArticleService,
               private router: Router) {
 
   }
@@ -32,7 +32,7 @@ export class ItemCreationComponent implements OnInit, OnDestroy {
 
   onSubmit(value: any) {
     if (this.creationForm.valid) {
-      this.subscription = this.itemService.save(value).subscribe(() => {
+      this.subscription = this.articleService.save(value).subscribe(() => {
         this.router.navigate(['/'], { replaceUrl: true });
       });
     }

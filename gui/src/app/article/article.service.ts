@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Item} from './item';
+import {Article} from './article';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemService {
+export class ArticleService {
 
   constructor(private http: HttpClient) {
   }
 
-  public save(item: Item): Observable<any> {
-    return this.http.post<Item>('/api/article/', item);
+  public save(article: Article): Observable<any> {
+    return this.http.post<Article>('/api/article/', article);
   }
 }

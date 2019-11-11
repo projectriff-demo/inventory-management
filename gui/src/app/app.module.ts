@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ItemCreationComponent} from './item/item-creation.component';
+import {ArticleCreationComponent} from './article/article-creation.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HomeComponent} from './home/home.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -11,7 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
-    ItemCreationComponent,
+    ArticleCreationComponent,
     HomeComponent,
   ],
   imports: [

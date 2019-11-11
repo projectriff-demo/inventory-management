@@ -1,42 +1,42 @@
 import {TestBed} from '@angular/core/testing';
 
-import {ItemService} from './item.service';
+import {ArticleService} from './article.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {Item} from "./item";
+import {Article} from "./article";
 
-describe('ItemService', () => {
+describe('ArticleService', () => {
   let httpMock: HttpTestingController;
-  let service: ItemService;
+  let service: ArticleService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ItemService]
+      providers: [ArticleService]
     });
 
     httpMock = TestBed.get(HttpTestingController);
-    service = TestBed.get(ItemService);
+    service = TestBed.get(ArticleService);
   });
 
-  it('should save an item', (done) => {
-    let item = {
+  it('should save an article', (done) => {
+    let article = {
       sku: 'some SKU',
       name: 'some name',
       description: 'some description',
       priceInUsd: 42
-    } as Item;
+    } as Article;
 
-    service.save(item).subscribe(() => {
+    service.save(article).subscribe(() => {
       done();
     });
 
     const req = httpMock.expectOne(`/api/article/`);
     expect(req.request.method).toBe("POST");
     req.flush({
-      "sku": item.sku,
-      "name": item.name,
-      "description": item.description,
-      "priceInUsd": item.priceInUsd,
+      "sku": article.sku,
+      "name": article.name,
+      "description": article.description,
+      "priceInUsd": article.priceInUsd,
       "_links": {
         "self": {
           "href": "http://localhost:8080/api/article/1"
