@@ -1,6 +1,6 @@
-<div class="row" *ngIf="articles$ | async as articles;">
+<div class="row d-flex justify-content-center" *ngIf="articles$ | async as articles;">
   <ng-container *ngIf="articles.length; else noArticles">
-    <div class="col mb-3" *ngFor="let article of articles$|async">
+    <div class="col-4 mb-3" *ngFor="let article of articles$|async">
       <div class="card" id="article-{{article.sku.replace(' ', '-')}}">
         <svg class="bd-placeholder-img card-img-top" width="100%" height="120" xmlns="http://www.w3.org/2000/svg"
              role="img" aria-label="Placeholder: Image cap">
@@ -20,5 +20,5 @@
 </div>
 
 <ng-template #noArticles>
-  <p class="lead">Please <a [routerLink]="['/new']">create</a> an article</p>
+  <p class="lead">💡 Please <a [routerLink]="['/new']">create</a> an article first</p>
 </ng-template>
