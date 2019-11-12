@@ -1,16 +1,41 @@
-import { AppPage } from './homepage.po';
-import { browser, logging } from 'protractor';
+import {Homepage} from './pages/homepage.po';
+import {browser, logging} from 'protractor';
+import {NavFragment} from "./pages/nav.fragment";
+import {Article} from "../../src/app/article/article";
 
 describe('workspace-project App', () => {
-  let page: AppPage;
+  let home: Homepage;
 
   beforeEach(() => {
-    page = new AppPage();
+    home = new Homepage(new NavFragment());
+    home.navigateTo();
   });
 
   it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('Inventory Management 📦');
+    expect(home.getTitleText()).toEqual('Inventory Management 📦');
+  });
+
+  it('should create and delete an article', () => {
+    const article = {
+      sku: `sku_${Math.random().toString(36).substring(2)}`,
+      name: `some name`,
+      description: `some description`,
+      priceInUsd: 42
+    } as Article;
+
+    home.navigateToFormPage()
+      .then(form => {
+        return form.submitArticle(article);
+      })
+      .then(list => {
+        expect(list.contains(article))
+          .toBeTruthy('created article should be in the list');
+        return list.delete(article)
+      })
+      .then(list => {
+        expect(list.contains(article))
+          .toBeFalsy('deleted article should not be in the list');
+      });
   });
 
   afterEach(async () => {
