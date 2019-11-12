@@ -12,12 +12,18 @@ exports.config = {
   specs: [
     './src/**/*.e2e-spec.ts'
   ],
-  capabilities: {
-    'browserName': 'chrome'
-  },
   // ** standard settings **
+  capabilities: {
+    'browserName': 'chrome',
+    chromeOptions: {
+      args: ["--headless", "--disable-gpu", "--window-size=1920,1080"]
+    }
+  },
   directConnect: true,
   // ** debug settings (specs play at "human" speed), run `npm run webdriver-manager update` first **
+  // capabilities: {
+  //   'browserName': 'chrome'
+  // },
   // highlightDelay: 1000,
   // directConnect: false,
 
