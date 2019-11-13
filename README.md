@@ -14,7 +14,7 @@ $ mvn spring-boot:run
 ```shell script
 $ cd gui
 $ npm install # if not done before
-$ ng serve
+$ npm start # runs ng serve
 ```
 
 Angular automatically proxies call to the backend via `angular.json` configuration (see the `proxyConfig` setting in the file).
@@ -33,12 +33,18 @@ $ mvn test
 
 ```shell script
 $ cd gui
-$ npm install # if not done before
-# continuous execution ↓
-$ ng test
-# single run ↓
-$ ng test --watch=false 
-$ ng e2e # make sure the backend runs in parallel
+
+# if not done before
+$ npm install
+
+# run `ng test` and watch for changes
+$ npm run testwatch
+
+# run test and return: `ng test --watch=false`
+$ npm run test
+
+# e2e test with `ng e2e` - requires spring boot backend running in parallel
+$ npm run e2e
 ```
 
 #### Frontend debugging tips
