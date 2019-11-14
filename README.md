@@ -5,7 +5,8 @@ It exposes an API and a GUI to manage the fictional shop's inventory.
 
 ## Run
 
-In separate terminals, run:
+Run `./start.sh` if you built the frontend before
+or run the following commands in separate terminals:
 
 ```shell script
 $ mvn spring-boot:run
