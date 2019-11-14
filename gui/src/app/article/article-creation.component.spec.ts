@@ -54,7 +54,8 @@ describe('ArticleCreationComponent', () => {
       sku: 'some SKU',
       name: 'some name',
       description: 'some description',
-      priceInUsd: 42
+      priceInUsd: 42,
+      imageUrl: 'https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif'
     } as Article;
 
     beforeEach(() => {
@@ -66,6 +67,7 @@ describe('ArticleCreationComponent', () => {
       setValue(form.querySelector('#name'), expectedArticle.name);
       setValue(form.querySelector('#description'), expectedArticle.description);
       setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#imageUrl'), expectedArticle.imageUrl);
 
       form.querySelector('.button').click();
 
@@ -115,6 +117,17 @@ describe('ArticleCreationComponent', () => {
 
       expect(articleServiceSpy.save).not.toHaveBeenCalled();
       expect(Array.from(form.querySelector('#priceInUsd').classList)).toContain('ng-invalid');
+    });
+
+    it('should NOT reject an empty image URL', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).toHaveBeenCalled();
     });
   });
 

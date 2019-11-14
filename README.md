@@ -40,8 +40,8 @@ $ npm install
 # run `ng test` and watch for changes
 $ npm run testwatch
 
-# run test and return: `ng test --watch=false`
-$ npm run test
+# or run tests and return: `ng test --watch=false`
+$ npm test
 
 # e2e test with `ng e2e` - requires spring boot backend running in parallel
 $ npm run e2e

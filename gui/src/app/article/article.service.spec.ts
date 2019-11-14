@@ -11,7 +11,8 @@ describe('ArticleService', () => {
     sku: 'a SKU1',
     name: 'name1',
     description: 'description1',
-    priceInUsd: 1
+    priceInUsd: 1,
+    imageUrl: 'https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif'
   } as Article;
   const article2 = {
     sku: 'a SKU2',
@@ -79,6 +80,7 @@ describe('ArticleService', () => {
           "name": article1.name,
           "description": article1.description,
           "priceInUsd": article1.priceInUsd,
+          "imageUrl": article1.imageUrl,
           "_links": {
             "self": {
               "href": "http://localhost:8080/api/article/1"

@@ -27,16 +27,17 @@ class ArticleJdbcHelper {
 
   public void save(Article article) {
     jdbcTemplate.update(
-      "INSERT INTO Article(`sku`,`name`,`description`,`price_in_usd`) VALUES(?,?,?,?)",
-      article.getSku(), article.getName(), article.getDescription(), article.getPriceInUsd());
+      "INSERT INTO Article(`sku`,`name`,`description`,`price_in_usd`,`image_url`) VALUES(?,?,?,?,?)",
+      article.getSku(), article.getName(), article.getDescription(), article.getPriceInUsd(), article.getImageUrl());
   }
 
   public List<Article> find() {
-    return jdbcTemplate.query("SELECT `sku`,`name`,`description`,`price_in_usd` FROM Article", (resultSet, i) -> new Article(
+    return jdbcTemplate.query("SELECT `sku`,`name`,`description`,`price_in_usd`,`image_url` FROM Article", (resultSet, i) -> new Article(
       resultSet.getString("sku"),
       resultSet.getString("name"),
       resultSet.getString("description"),
-      resultSet.getBigDecimal("price_in_usd")));
+      resultSet.getBigDecimal("price_in_usd"),
+      resultSet.getString("image_url")));
   }
 }
 

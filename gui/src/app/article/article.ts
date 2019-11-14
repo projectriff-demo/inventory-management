@@ -3,4 +3,5 @@ export interface Article {
   name: string;
   description: string;
   priceInUsd: number;
+  imageUrl: string | null;
 }

@@ -28,12 +28,16 @@ export class ArticleService {
         filter((_) => _ != null),
         map((data: any) => {
           return data._embedded.articles.map(article => {
-            return {
+            const result = {
               sku: article.sku,
               name: article.name,
               description: article.description,
               priceInUsd: article.priceInUsd,
             } as Article;
+            if (article.imageUrl) {
+              result.imageUrl = article.imageUrl;
+            }
+            return result;
           });
         })
       )

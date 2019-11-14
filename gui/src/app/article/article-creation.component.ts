@@ -26,7 +26,8 @@ export class ArticleCreationComponent implements OnInit, OnDestroy {
       sku: ['', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      priceInUsd: ['', Validators.required]
+      priceInUsd: ['', Validators.required],
+      imageUrl: [''],
     });
   }
 

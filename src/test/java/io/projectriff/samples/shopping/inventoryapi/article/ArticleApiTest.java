@@ -45,7 +45,7 @@ class ArticleApiTest {
   @Test
   @DisplayName("persists articles via API")
   void persists_requested_article() throws Exception {
-    Article article = new Article("some SKU", "some name", "some description", BigDecimal.ONE);
+    Article article = new Article("some SKU", "some name", "some description", BigDecimal.ONE, null);
 
     mockMvc.perform(post("/api/article")
       .contentType(APPLICATION_JSON)
@@ -57,8 +57,8 @@ class ArticleApiTest {
   @DisplayName("lists articles via API")
   void lists_articles() throws Exception {
     List<Article> articles = Arrays.asList(
-      new Article("sku 1", "name 1", "description 1", BigDecimal.ONE),
-      new Article("sku 2", "name 2", "description 2", BigDecimal.TEN)
+      new Article("sku 1", "name 1", "description 1", BigDecimal.ONE, null),
+      new Article("sku 2", "name 2", "description 2", BigDecimal.TEN, null)
     );
     articles.forEach(jdbcHelper::save);
 
@@ -76,8 +76,8 @@ class ArticleApiTest {
   @Test
   @DisplayName("deletes articles via API")
   void deletes_articles() throws Exception {
-    Article article1 = new Article("sku 1", "name 1", "description 1", BigDecimal.ONE);
-    Article article2 = new Article("sku 2", "name 2", "description 2", BigDecimal.TEN);
+    Article article1 = new Article("sku 1", "name 1", "description 1", BigDecimal.ONE, null);
+    Article article2 = new Article("sku 2", "name 2", "description 2", BigDecimal.TEN, null);
     Arrays.asList(article1, article2).forEach(jdbcHelper::save);
 
     mockMvc.perform(delete("/api/article/?sku={sku}", article1.getSku()))

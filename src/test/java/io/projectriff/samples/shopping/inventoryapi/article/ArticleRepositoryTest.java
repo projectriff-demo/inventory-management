@@ -24,9 +24,11 @@ class ArticleRepositoryTest {
   @Autowired
   ArticleRepository repository;
 
-  private Article article = new Article("some SKU", "some name", "description", BigDecimal.TEN);
+  private Article article = new Article("some SKU", "some name", "description", BigDecimal.TEN, null);
 
-  private Article otherArticle = new Article("some other SKU", "some other name", "other description", BigDecimal.ONE);
+  private Article otherArticle = new Article("some other SKU", "some other name", "other description", BigDecimal.ONE, null);
+
+  private Article articleWithImage = new Article("yet another SKU", "yet another name", "yet another description", BigDecimal.ZERO, "https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif");
 
   @Test
   @DisplayName("Persists articles")
@@ -41,9 +43,10 @@ class ArticleRepositoryTest {
   void finds_all_articles() {
     jdbcHelper.save(article);
     jdbcHelper.save(otherArticle);
+    jdbcHelper.save(articleWithImage);
 
     assertThat(repository.findAll())
-      .containsExactly(article, otherArticle);
+      .containsExactly(article, otherArticle, articleWithImage);
   }
 
   @Test
@@ -58,11 +61,19 @@ class ArticleRepositoryTest {
   }
 
   @Test
+  @DisplayName("Persists article with image URL")
+  void persists_articles_with_image_urls() {
+    Article article = repository.save(this.articleWithImage);
+
+    assertThat(jdbcHelper.find()).containsExactly(article);
+  }
+
+  @Test
   @DisplayName("Blows up if persisting an article with an existing SKU")
   void fails_persisting_duplicate_sku() {
     jdbcHelper.save(article);
 
-    Article duplicate = new Article(article.getSku(), article.getName(), article.getDescription(), article.getPriceInUsd());
+    Article duplicate = new Article(article.getSku(), article.getName(), article.getDescription(), article.getPriceInUsd(), article.getImageUrl());
 
     assertThatThrownBy(() -> repository.save(duplicate))
       .hasCauseInstanceOf(DuplicateKeyException.class)

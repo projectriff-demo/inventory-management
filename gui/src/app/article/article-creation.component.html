@@ -1,6 +1,5 @@
 <form [formGroup]="creationForm" (ngSubmit)="onSubmit(creationForm.value)">
   <div class="form-row">
-
     <div class="form-group">
       <label for="sku">SKU</label>
       <input type="text" formControlName="sku" class="form-control" id="sku" aria-describedby="skuHelp"
@@ -31,6 +30,15 @@
              aria-describedby="priceInUsdHelp"
              placeholder="Enter price (USD)"/>
       <small id="priceInUsdHelp" class="form-text text-muted">Article price (USD)</small>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="imageUrl">Optional image URL</label>
+      <input type="text" formControlName="imageUrl" class="form-control" id="imageUrl"
+             aria-describedby="imageUrlHelp"
+             placeholder="Enter optional image URL"/>
+      <small id="imageUrlHelp" class="form-text text-muted">Article image URL</small>
     </div>
   </div>
   <div class="form-row">

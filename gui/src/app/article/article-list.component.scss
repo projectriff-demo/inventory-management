@@ -1,6 +1,16 @@
+:host { width: 100%;}
+
 .card {
   .delete-link {
     text-decoration: underline;
     cursor: pointer;
+  }
+
+  svg, .article-image {
+    height: 120px;
+  }
+
+  .article-image {
+    background-size: cover;
   }
 }
