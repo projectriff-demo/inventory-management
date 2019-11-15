@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {ArticleService} from './article.service';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
@@ -23,14 +23,26 @@ export class ArticleCreationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.creationForm = this.formBuilder.group({
-      sku: ['', Validators.required],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      priceInUsd: ['', Validators.required],
+      sku: ['', [
+        Validators.required,
+        ArticleCreationComponent.notBlank
+      ]],
+      name: ['', [
+        Validators.required,
+        ArticleCreationComponent.notBlank
+      ]],
+      description: ['', [
+        Validators.required,
+        ArticleCreationComponent.notBlank
+      ]],
+      priceInUsd: ['', [
+        Validators.required,
+        Validators.min(0.01)
+      ]],
       imageUrl: [''],
       quantity: ['', [
         Validators.required,
-        Validators.pattern(/^(0|\+?[1-9]\d*)$/),
+        Validators.pattern(/^(0|[1-9]\d*)$/),
         Validators.max(Math.pow(2, 31) - 1)
       ]],
     });
@@ -48,5 +60,13 @@ export class ArticleCreationComponent implements OnInit, OnDestroy {
     if (this.subscription !== null) {
       this.subscription.unsubscribe();
     }
+  }
+
+  static notBlank(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (value && value.trim().length > 0) {
+      return null;
+    }
+    return {'notblank': value};
   }
 }

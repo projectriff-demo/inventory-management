@@ -38,6 +38,7 @@ public class Article {
     this.priceInUsd = priceInUsd;
     this.imageUrl = imageUrl;
     this.quantity = quantity;
+    ArticleValidator.validate(this);
   }
 
   public Long getId() {

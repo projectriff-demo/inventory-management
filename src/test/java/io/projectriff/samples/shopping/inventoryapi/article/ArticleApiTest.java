@@ -15,11 +15,13 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -82,5 +84,20 @@ class ArticleApiTest {
 
     mockMvc.perform(delete("/api/article/?sku={sku}", article1.getSku()))
       .andExpect(status().isNoContent());
+  }
+
+  @Test
+  @DisplayName("blows up if article is invalid")
+  void fails_with_a_zeroed_price() throws Exception {
+    mockMvc.perform(post("/api/article")
+      .contentType(APPLICATION_JSON)
+      .content("{}"))
+      .andExpect(status().isBadRequest())
+      .andExpect(jsonPath("$.[*].property").value(is(Arrays.asList("sku", "name", "description", "priceInUsd"))))
+      .andExpect(jsonPath("$.[*].reason").value(is(Arrays.asList(
+        "expected property not to be blank",
+        "expected property not to be blank",
+        "expected property not to be blank",
+        "expected property not to be null"))));
   }
 }

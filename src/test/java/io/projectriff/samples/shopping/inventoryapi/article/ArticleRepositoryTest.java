@@ -28,7 +28,7 @@ class ArticleRepositoryTest {
 
   private Article otherArticle = new Article("some other SKU", "some other name", "other description", BigDecimal.ONE, null, 3);
 
-  private Article articleWithImage = new Article("yet another SKU", "yet another name", "yet another description", BigDecimal.ZERO, "https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif", 1);
+  private Article articleWithImage = new Article("yet another SKU", "yet another name", "yet another description", BigDecimal.ONE, "https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif", 1);
 
   @Test
   @DisplayName("Persists articles")

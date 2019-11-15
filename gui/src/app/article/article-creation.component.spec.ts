@@ -101,8 +101,34 @@ describe('ArticleCreationComponent', () => {
       expect(Array.from(form.querySelector('#sku').classList)).toContain('ng-invalid');
     });
 
+    it('should reject a blank SKU', () => {
+      setValue(form.querySelector('#sku'), '    ');
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#sku').classList)).toContain('ng-invalid');
+    });
+
     it('should reject an empty name', () => {
       setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#name').classList)).toContain('ng-invalid');
+    });
+
+    it('should reject a blank name', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), ' ');
       setValue(form.querySelector('#description'), expectedArticle.description);
       setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
       setValue(form.querySelector('#quantity'), expectedArticle.quantity);
@@ -125,11 +151,50 @@ describe('ArticleCreationComponent', () => {
       expect(Array.from(form.querySelector('#description').classList)).toContain('ng-invalid');
     });
 
+    it('should reject a blank description', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), ' ');
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#description').classList)).toContain('ng-invalid');
+    });
+
     it('should reject an empty price', () => {
       setValue(form.querySelector('#sku'), expectedArticle.sku);
       setValue(form.querySelector('#name'), expectedArticle.name);
       setValue(form.querySelector('#description'), expectedArticle.description);
       setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#priceInUsd').classList)).toContain('ng-invalid');
+    });
+
+    it('should reject a negative price (inc. 0)', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+      setValue(form.querySelector('#priceInUsd'), 0);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#priceInUsd').classList)).toContain('ng-invalid');
+    });
+
+    it('should reject a too small price', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+      setValue(form.querySelector('#priceInUsd'), 0.001);
 
       form.querySelector('.button').click();
 
