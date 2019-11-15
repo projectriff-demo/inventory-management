@@ -28,13 +28,18 @@ export class ArticleCreationComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       priceInUsd: ['', Validators.required],
       imageUrl: [''],
+      quantity: ['', [
+        Validators.required,
+        Validators.pattern(/^(0|\+?[1-9]\d*)$/),
+        Validators.max(Math.pow(2, 31) - 1)
+      ]],
     });
   }
 
   onSubmit(value: any) {
     if (this.creationForm.valid) {
       this.subscription = this.articleService.save(value).subscribe(() => {
-        this.router.navigate(['/list'], { replaceUrl: true });
+        this.router.navigate(['/list'], {replaceUrl: true});
       });
     }
   }

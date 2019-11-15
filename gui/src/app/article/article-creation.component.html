@@ -34,6 +34,15 @@
   </div>
   <div class="form-row">
     <div class="form-group">
+      <label for="quantity">Available stock quantity</label>
+      <input type="number" formControlName="quantity" class="form-control" id="quantity"
+             aria-describedby="quantityHelp"
+             placeholder="Enter quantity"/>
+      <small id="quantityHelp" class="form-text text-muted">Available stock quantity</small>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
       <label for="imageUrl">Optional image URL</label>
       <input type="text" formControlName="imageUrl" class="form-control" id="imageUrl"
              aria-describedby="imageUrlHelp"

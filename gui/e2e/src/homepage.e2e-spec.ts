@@ -20,7 +20,8 @@ describe('workspace-project App', () => {
       sku: `sku_${Math.random().toString(36).substring(2)}`,
       name: `some name`,
       description: `some description`,
-      priceInUsd: 42
+      priceInUsd: 42,
+      quantity: 23,
     } as Article;
 
     home.navigateToFormPage()

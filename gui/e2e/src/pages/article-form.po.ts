@@ -22,6 +22,9 @@ export class ArticleFormPage implements Browsable {
         return ArticleFormPage.fillField('priceInUsd', article.priceInUsd)
       })
       .then(_ => {
+        return ArticleFormPage.fillField('quantity', article.quantity)
+      })
+      .then(_ => {
         return element(by.css("button[type=submit]")).click();
       })
       .then(_ => {

@@ -55,7 +55,8 @@ describe('ArticleCreationComponent', () => {
       name: 'some name',
       description: 'some description',
       priceInUsd: 42,
-      imageUrl: 'https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif'
+      imageUrl: 'https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif',
+      quantity: 3
     } as Article;
 
     beforeEach(() => {
@@ -68,6 +69,7 @@ describe('ArticleCreationComponent', () => {
       setValue(form.querySelector('#description'), expectedArticle.description);
       setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
       setValue(form.querySelector('#imageUrl'), expectedArticle.imageUrl);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
 
       form.querySelector('.button').click();
 
@@ -75,10 +77,23 @@ describe('ArticleCreationComponent', () => {
       expect(routerStub.navigate).toHaveBeenCalledWith(['/list'], {replaceUrl: true});
     });
 
+    it('should accept an empty image URL', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).toHaveBeenCalled();
+    });
+
     it('should reject an empty SKU', () => {
       setValue(form.querySelector('#name'), expectedArticle.name);
       setValue(form.querySelector('#description'), expectedArticle.description);
       setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
 
       form.querySelector('.button').click();
 
@@ -90,6 +105,7 @@ describe('ArticleCreationComponent', () => {
       setValue(form.querySelector('#sku'), expectedArticle.sku);
       setValue(form.querySelector('#description'), expectedArticle.description);
       setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
 
       form.querySelector('.button').click();
 
@@ -101,6 +117,7 @@ describe('ArticleCreationComponent', () => {
       setValue(form.querySelector('#sku'), expectedArticle.sku);
       setValue(form.querySelector('#name'), expectedArticle.name);
       setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
 
       form.querySelector('.button').click();
 
@@ -112,6 +129,7 @@ describe('ArticleCreationComponent', () => {
       setValue(form.querySelector('#sku'), expectedArticle.sku);
       setValue(form.querySelector('#name'), expectedArticle.name);
       setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#quantity'), expectedArticle.quantity);
 
       form.querySelector('.button').click();
 
@@ -119,7 +137,7 @@ describe('ArticleCreationComponent', () => {
       expect(Array.from(form.querySelector('#priceInUsd').classList)).toContain('ng-invalid');
     });
 
-    it('should NOT reject an empty image URL', () => {
+    it('should reject an empty quantity', () => {
       setValue(form.querySelector('#sku'), expectedArticle.sku);
       setValue(form.querySelector('#name'), expectedArticle.name);
       setValue(form.querySelector('#description'), expectedArticle.description);
@@ -127,7 +145,47 @@ describe('ArticleCreationComponent', () => {
 
       form.querySelector('.button').click();
 
-      expect(articleServiceSpy.save).toHaveBeenCalled();
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#quantity').classList)).toContain('ng-invalid');
+    });
+
+    it('should reject a negative quantity', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), -1);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#quantity').classList)).toContain('ng-invalid');
+    });
+
+    it('should reject positive non-integer quantity values', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), 3.4);
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#quantity').classList)).toContain('ng-invalid');
+    });
+
+    it('should reject values too big to be stored by the backend', () => {
+      setValue(form.querySelector('#sku'), expectedArticle.sku);
+      setValue(form.querySelector('#name'), expectedArticle.name);
+      setValue(form.querySelector('#description'), expectedArticle.description);
+      setValue(form.querySelector('#priceInUsd'), expectedArticle.priceInUsd);
+      setValue(form.querySelector('#quantity'), Math.pow(2, 31));
+
+      form.querySelector('.button').click();
+
+      expect(articleServiceSpy.save).not.toHaveBeenCalled();
+      expect(Array.from(form.querySelector('#quantity').classList)).toContain('ng-invalid');
     });
   });
 

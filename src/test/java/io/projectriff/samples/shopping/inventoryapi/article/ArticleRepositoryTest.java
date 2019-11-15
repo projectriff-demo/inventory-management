@@ -24,11 +24,11 @@ class ArticleRepositoryTest {
   @Autowired
   ArticleRepository repository;
 
-  private Article article = new Article("some SKU", "some name", "description", BigDecimal.TEN, null);
+  private Article article = new Article("some SKU", "some name", "description", BigDecimal.TEN, null, 12);
 
-  private Article otherArticle = new Article("some other SKU", "some other name", "other description", BigDecimal.ONE, null);
+  private Article otherArticle = new Article("some other SKU", "some other name", "other description", BigDecimal.ONE, null, 3);
 
-  private Article articleWithImage = new Article("yet another SKU", "yet another name", "yet another description", BigDecimal.ZERO, "https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif");
+  private Article articleWithImage = new Article("yet another SKU", "yet another name", "yet another description", BigDecimal.ZERO, "https://giphygifs.s3.amazonaws.com/media/kKdgdeuO2M08M/giphy.gif", 1);
 
   @Test
   @DisplayName("Persists articles")
@@ -73,7 +73,14 @@ class ArticleRepositoryTest {
   void fails_persisting_duplicate_sku() {
     jdbcHelper.save(article);
 
-    Article duplicate = new Article(article.getSku(), article.getName(), article.getDescription(), article.getPriceInUsd(), article.getImageUrl());
+    Article duplicate = new Article(
+      article.getSku(),
+      article.getName(),
+      article.getDescription(),
+      article.getPriceInUsd(),
+      article.getImageUrl(),
+      article.getQuantity()
+    );
 
     assertThatThrownBy(() -> repository.save(duplicate))
       .hasCauseInstanceOf(DuplicateKeyException.class)

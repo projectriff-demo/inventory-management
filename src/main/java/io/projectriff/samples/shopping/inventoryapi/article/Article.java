@@ -16,6 +16,7 @@ public class Article {
   private final String description;
   private final BigDecimal priceInUsd;
   private final String imageUrl;
+  private final int quantity;
 
   @PersistenceConstructor
   @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -23,18 +24,20 @@ public class Article {
                  @JsonProperty("name") String name,
                  @JsonProperty("description") String description,
                  @JsonProperty("priceInUsd") BigDecimal priceInUsd,
-                 @JsonProperty("imageUrl") String imageUrl) {
+                 @JsonProperty("imageUrl") String imageUrl,
+                 @JsonProperty("quantity") int quantity) {
 
-    this(null, sku, name, description, priceInUsd, imageUrl);
+    this(null, sku, name, description, priceInUsd, imageUrl, quantity);
   }
 
-  Article(Long id, String sku, String name, String description, BigDecimal priceInUsd, String imageUrl) {
+  Article(Long id, String sku, String name, String description, BigDecimal priceInUsd, String imageUrl, int quantity) {
     this.id = id;
     this.sku = sku;
     this.name = name;
     this.description = description;
     this.priceInUsd = priceInUsd;
     this.imageUrl = imageUrl;
+    this.quantity = quantity;
   }
 
   public Long getId() {
@@ -61,8 +64,12 @@ public class Article {
     return imageUrl;
   }
 
+  public int getQuantity() {
+    return quantity;
+  }
+
   Article withId(Long id) {
-    return new Article(id, this.sku, this.name, this.description, this.priceInUsd, this.imageUrl);
+    return new Article(id, this.sku, this.name, this.description, this.priceInUsd, this.imageUrl, this.quantity);
   }
 
   @Override
@@ -72,7 +79,8 @@ public class Article {
       ", name='" + name + '\'' +
       ", description='" + description + '\'' +
       ", priceInUsd=" + priceInUsd + '\'' +
-      ", imageUrl=" + imageUrl +
+      ", imageUrl=" + imageUrl + '\'' +
+      ", quantity=" + quantity +
       '}';
   }
 
@@ -85,11 +93,12 @@ public class Article {
       Objects.equals(name, article.name) &&
       Objects.equals(description, article.description) &&
       Objects.equals(priceInUsd, article.priceInUsd) &&
-      Objects.equals(imageUrl, article.imageUrl);
+      Objects.equals(imageUrl, article.imageUrl) &&
+      Objects.equals(quantity, article.quantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sku, name, description, priceInUsd, imageUrl);
+    return Objects.hash(sku, name, description, priceInUsd, imageUrl, quantity);
   }
 }

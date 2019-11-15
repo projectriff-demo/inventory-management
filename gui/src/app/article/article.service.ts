@@ -33,6 +33,7 @@ export class ArticleService {
               name: article.name,
               description: article.description,
               priceInUsd: article.priceInUsd,
+              quantity: article.quantity,
             } as Article;
             if (article.imageUrl) {
               result.imageUrl = article.imageUrl;

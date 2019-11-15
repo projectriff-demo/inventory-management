@@ -8,4 +8,5 @@
 
   <include file="article_init.xml" relativeToChangelogFile="true"/>
   <include file="article_add_image.xml" relativeToChangelogFile="true"/>
+  <include file="article_add_quantity.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

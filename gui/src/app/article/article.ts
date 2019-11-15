@@ -4,4 +4,5 @@ export interface Article {
   description: string;
   priceInUsd: number;
   imageUrl: string | null;
+  quantity: number;
 }
