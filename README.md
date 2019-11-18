@@ -20,6 +20,20 @@ $ npm start # runs ng serve
 
 Angular automatically proxies call to the backend via `angular.json` configuration (see the `proxyConfig` setting in the file).
 
+## Use a PostgreSQL database
+
+Start a database instance using Docker:
+
+```shell script
+docker run --name postgres -e POSTGRES_PASSWORD=spring -e POSTGRES_DB=testdb -p 5432:5432 -d postgres:latest
+```
+
+Run the inventory app with a `cloud` profile:
+
+```shell script
+java -jar target/inventory-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=cloud
+```
+
 ## Development
 
 ### Tests
