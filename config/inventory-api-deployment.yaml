@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: inventory-api
+  name: inventory-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-api
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: inventory-api
+    spec:
+      containers:
+      - image: projectriff/inventory-api
+        imagePullPolicy: Always
+        name: inventory-api
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: cloud
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://inventory-db-postgresql:5432/inventory
+        - name: SPRING_DATASOURCE_USERNAME
+          value: postgres
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: postgresql-password
+              name: inventory-db-postgresql
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/info
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health
+          initialDelaySeconds: 15
+          periodSeconds: 20
