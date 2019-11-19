@@ -56,7 +56,7 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace default inventory-db-p
 kubectl port-forward --namespace default svc/inventory-db-postgresql 5432:5432
 ```
 
-You can now connect to the PostgreSQL databse using your favorite SQL Query tool using host `127.0.0.1` and port `5432` as user `postgres` and `inventory` as the database. The password was stored in the `POSTGRES_PASSWORD` env var.
+You can now connect to the PostgreSQL database using your favorite SQL Query tool using host `127.0.0.1` and port `5432` as user `postgres` and `inventory` as the database. The password was stored in the `POSTGRES_PASSWORD` env var.
 
 Deploy the app deployment and corresponding service YAML:
 
