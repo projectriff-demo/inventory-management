@@ -43,7 +43,7 @@ pack build -p . projectriff/inventory-api
 docker push projectriff/inventory-api
 ```
 
-Install the PostgreSQL database using a Helm chart (using Helm v2). See the [riff docs]([)](https://projectriff.io/docs/v0.4/getting-started/minikube#install-helm) for instructions.
+Install the PostgreSQL database using a Helm chart (using Helm v2). See the [riff docs](https://projectriff.io/docs/v0.4/getting-started/minikube#install-helm) for instructions.
 
 ```shell script
 helm install --name inventory-db --namespace default --set postgresqlDatabase=inventory stable/postgresql
