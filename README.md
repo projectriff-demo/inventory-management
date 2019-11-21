@@ -41,9 +41,8 @@ java -jar target/inventory-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=cloud
 Build the Inventory API and push to DockerHub.
 
 ```shell script
-pack set-default-builder cloudfoundry/cnb:cflinuxfs3 # if not done already
-pack build -p . projectriff/inventory-api
-docker push projectriff/inventory-api
+pack build --builder cloudfoundry/cnb:cflinuxfs3 -p . tanzumkondo/inventory-api
+docker push tanzumkondo/inventory-api
 ```
 
 Install the PostgreSQL database using a Helm chart (using Helm v2). See the [riff docs](https://projectriff.io/docs/v0.4/getting-started/minikube#install-helm) for instructions.
@@ -71,8 +70,7 @@ kubectl apply -f ./config/inventory-api-service.yaml
 ### Frontend
 
 ```shell script
-cd gui
-docker build -t tanzumkondo/inventory-gui .
+docker build -t tanzumkondo/inventory-gui ./gui
 docker push tanzumkondo/inventory-gui
 ```
 
