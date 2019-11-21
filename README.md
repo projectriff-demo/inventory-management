@@ -34,7 +34,9 @@ Run the inventory app with a `cloud` profile:
 java -jar target/inventory-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=cloud
 ```
 
-### Use a PostgreSQL database on Kubernetes
+## Deploy to K8s
+
+### Backend
 
 Build the Inventory API and push to DockerHub.
 
@@ -64,6 +66,19 @@ Deploy the app deployment and corresponding service YAML:
 ```shell script
 kubectl apply -f ./config/inventory-api-deployment.yaml
 kubectl apply -f ./config/inventory-api-service.yaml
+```
+
+### Frontend
+
+```shell script
+cd gui
+docker build -t tanzumkondo/inventory-gui .
+docker push tanzumkondo/inventory-gui
+```
+
+```shell script
+kubectl apply -f ./config/inventory-gui-deployment.yaml
+kubectl apply -f ./config/inventory-gui-service.yaml
 ```
 
 ## Development

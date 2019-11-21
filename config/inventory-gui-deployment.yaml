@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: inventory-gui
+  name: inventory-gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-gui
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: inventory-gui
+    spec:
+      containers:
+        - image: tanzumkondo/inventory-gui
+          imagePullPolicy: Always
+          name: inventory-gui
