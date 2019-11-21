@@ -16,7 +16,7 @@ spec:
         app: inventory-api
     spec:
       containers:
-      - image: projectriff/inventory-api
+      - image: tanzumkondo/inventory-api
         imagePullPolicy: Always
         name: inventory-api
         env:
