@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "http://inventory-api:80",
-    "secure": false
-  }
-}

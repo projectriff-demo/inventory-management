@@ -1,7 +1,11 @@
-FROM node:13-stretch
+FROM node:13-stretch AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-EXPOSE 4200
-CMD ["npm", "run", "startprod"]
+RUN npm run buildprod
+
+FROM nginx:stable
+COPY --from=build /app/dist/shopping-inventory /var/www
+COPY ./nginx-production.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]
