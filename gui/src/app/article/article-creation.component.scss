@@ -9,10 +9,19 @@ form {
   }
 
   input, textarea {
-    width: 20vw;
+    width: 25vw;
 
     &.ng-invalid:not(.ng-pristine) {
       border: 2px solid red;
+    }
+  }
+}
+
+// xs and s devices
+@media (max-width: 767px) {
+  form {
+    input, textarea {
+      width: 100%;
     }
   }
 }

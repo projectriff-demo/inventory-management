@@ -3,3 +3,10 @@ body {
   margin: 0 auto;
   width: 50vw;
 }
+
+// xs and s devices
+@media (max-width: 767px) {
+  body {
+    width: 100%;
+  }
+}
