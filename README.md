@@ -17,10 +17,10 @@ $ cd gui
 $ npm install # if not done before
 $ npm start # runs ng serve
 ```
-
+The backend will interact with a H2 database.
 Angular automatically proxies call to the backend via `angular.json` configuration (see the `proxyConfig` setting in the file).
 
-### Use a PostgreSQL database locally
+### (Optional) Use a PostgreSQL database locally
 
 Start a database instance using Docker:
 
