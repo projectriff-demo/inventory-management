@@ -79,6 +79,16 @@ kubectl apply -f ./config/inventory-gui-deployment.yaml
 kubectl apply -f ./config/inventory-gui-service.yaml
 ```
 
+### Sample Data
+
+To load some sample data after the `inventory-api` service has been created you can run the following command:
+
+```shell script
+./data/curl-data.sh ./data/sample-data.json
+```
+
+You can also pass in the path to another data file with data in a json format, one line per article.
+
 ## Development
 
 ### Tests
