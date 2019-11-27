@@ -9,7 +9,7 @@ Run `./start.sh` if you built the frontend before
 or run the following commands in separate terminals:
 
 ```shell script
-$ mvn spring-boot:run
+$ ./mvnw spring-boot:run
 ```
 
 ```shell script
