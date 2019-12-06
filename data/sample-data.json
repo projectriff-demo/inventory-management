@@ -1,3 +1,5 @@
 {"sku" : "12345-00001", "name" : "Trumpet", "description" : "A fine musical instrument, perfect for playing Jazz riffs.", "priceInUsd" : 545, "imageUrl" : "https://free-images.com/tn/4fa5/trumpet_music_brass_orchestra.jpg", "quantity" : 3}
 {"sku" : "12345-00002", "name" : "Guitar", "description" : "A nice guitar, great for riffing.", "priceInUsd" : 315, "imageUrl" : "https://free-images.com/sm/1b40/guitar_electric_guitar_music.jpg", "quantity" : 7}
 {"sku" : "12345-00003", "name" : "Drums", "description" : "A good set of drums for riffing with your buddies.", "priceInUsd" : 229, "imageUrl" : "https://free-images.com/sm/c7b2/drums_music_cymbal_brass.jpg", "quantity" : 2 }
+{"sku" : "12345-00004", "name" : "Saz", "description" : "Notice how Saz rhymes with Hijaz?", "priceInUsd" : 249, "imageUrl" : "https://upload.wikimedia.org/wikipedia/commons/e/e0/Divan_saz.png", "quantity" : 4 }
+{"sku" : "12345-00005", "name" : "Triangle", "description" : "Explore music by 180 degrees!", "priceInUsd" : 29, "imageUrl" : "https://upload.wikimedia.org/wikipedia/commons/5/5c/Triangle_instrument_and_stick.png", "quantity" : 6 }
