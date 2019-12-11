@@ -1,5 +1,8 @@
 # Shopping inventory back-office
 
+![Backend Build status](https://github.com/projectriff-demo/inventory-management/workflows/Backend%20CI/badge.svg)
+![Frontend Build Status](https://github.com/projectriff-demo/inventory-management/workflows/Frontend%20CI/badge.svg)
+
 This application is part of [riff](https://projectriff.io)'s shopping demo.
 It exposes an API and a GUI to manage the fictional shop's inventory.
 
