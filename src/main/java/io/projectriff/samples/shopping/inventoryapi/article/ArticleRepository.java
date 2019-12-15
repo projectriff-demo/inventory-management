@@ -10,7 +10,16 @@ import org.springframework.data.rest.core.annotation.RestResource;
 @RepositoryRestResource(path = "article")
 public interface ArticleRepository extends CrudRepository<Article, Long> {
 
+  @Query("SELECT id,sku,name,description,price_in_usd,image_url,quantity FROM article WHERE sku = :sku")
+  Article findBySku(@Param("sku") String sku);
+
+  @RestResource(exported = false)
   @Modifying
-  @Query("DELETE FROM Article WHERE sku = :sku")
+  @Query("UPDATE article SET quantity = :to WHERE sku = :sku AND quantity = :from")
+  int updateQuantityBySku(@Param("sku") String sku, @Param("from") int from, @Param("to") int to);
+
+  @RestResource(exported = false)
+  @Modifying
+  @Query("DELETE FROM article WHERE sku = :sku")
   void deleteBySku(@Param("sku") String sku);
 }
