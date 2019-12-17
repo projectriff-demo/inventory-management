@@ -82,7 +82,7 @@ class ArticleApiTest {
     Article article2 = new Article("sku 2", "name 2", "description 2", BigDecimal.TEN, null, 7);
     Arrays.asList(article1, article2).forEach(jdbcHelper::save);
 
-    mockMvc.perform(delete("/api/article/?sku={sku}", article1.getSku()))
+    mockMvc.perform(delete("/api/article/deleteBySku/?sku={sku}", article1.getSku()))
       .andExpect(status().isNoContent());
   }
 
