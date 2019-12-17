@@ -131,7 +131,7 @@ describe('ArticleService', () => {
     });
     service.deleteBySku(sku);
 
-    const req = httpMock.expectOne(req => req.method === 'DELETE' && req.url === '/api/article');
+    const req = httpMock.expectOne(req => req.method === 'DELETE' && req.url === '/api/article/deleteBySku');
     expect(req.request.params.get('sku')).toEqual(sku);
     req.flush(null, {
       headers: {

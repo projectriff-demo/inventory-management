@@ -48,7 +48,7 @@ export class ArticleService {
   }
 
   public deleteBySku(sku: string): void {
-    this.http.delete('/api/article', {
+    this.http.delete('/api/article/deleteBySku', {
       params: new HttpParams().set('sku', sku)
     }).subscribe(_ => {
       this.publish(this.articles.filter(article => article.sku !== sku));
