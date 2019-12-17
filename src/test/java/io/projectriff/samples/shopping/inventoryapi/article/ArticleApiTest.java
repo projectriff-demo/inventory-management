@@ -19,6 +19,7 @@ import static org.hamcrest.core.Is.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -72,6 +73,43 @@ class ArticleApiTest {
         "    \"articles\" : %s\n" +
         "  }\n" +
         "}", objectMapper.writeValueAsString(articles))));
+
+  }
+
+  @Test
+  @DisplayName("finds articles via API")
+  void find_article() throws Exception {
+    List<Article> articles = Arrays.asList(
+      new Article("sku 1", "name 1", "description 1", BigDecimal.ONE, null, 1),
+      new Article("sku 2", "name 2", "description 2", BigDecimal.TEN, null, 2)
+    );
+    Article articleToFind = articles.get(0);
+    articles.forEach(jdbcHelper::save);
+
+    mockMvc.perform(get("/api/article/search/findBySku/?sku={sku}", articleToFind.getSku())
+      .contentType(APPLICATION_JSON))
+      .andExpect(status().isOk())
+      .andExpect(content().json(objectMapper.writeValueAsString(articleToFind)));
+
+  }
+
+  @Test
+  @DisplayName("updates quantity for articles via API")
+  void update_article() throws Exception {
+    List<Article> articles = Arrays.asList(
+      new Article("sku 1", "name 1", "description 1", BigDecimal.ONE, null, 1),
+      new Article("sku 2", "name 2", "description 2", BigDecimal.TEN, null, 2)
+    );
+    Article articleToUpdate = articles.get(0);
+    articles.forEach(jdbcHelper::save);
+    ArticleQuantityUpdate newQuantity = new ArticleQuantityUpdate(articleToUpdate.getQuantity(), 0);
+    Article updatedArticle = new Article("sku 1", "name 1", "description 1", BigDecimal.ONE, null, 0);
+
+    mockMvc.perform(patch("/api/article/updateQuantityBySku/?sku={sku}", articleToUpdate.getSku())
+      .content(objectMapper.writeValueAsString(newQuantity))
+      .contentType(APPLICATION_JSON))
+      .andExpect(status().isOk())
+      .andExpect(content().json(objectMapper.writeValueAsString(updatedArticle)));
 
   }
 

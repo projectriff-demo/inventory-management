@@ -50,6 +50,32 @@ class ArticleRepositoryTest {
   }
 
   @Test
+  @DisplayName("Finds articles by SKU")
+  void find_article_by_sku() {
+    jdbcHelper.save(article);
+    jdbcHelper.save(otherArticle);
+
+    Article found = repository.findBySku(article.getSku());
+
+    assertThat(repository.findAll()).containsExactly(article, otherArticle);
+    assertThat(found.getSku()).isEqualTo(article.getSku());
+  }
+
+  @Test
+  @DisplayName("Updates quantity for articles by SKU")
+  void update_article_by_sku() {
+    jdbcHelper.save(article);
+    jdbcHelper.save(otherArticle);
+
+    int count = repository.updateQuantityBySku(article.getSku(), 12, 11);
+
+    Article updatedArticle = new Article("some SKU", "some name", "description", BigDecimal.TEN, null, 11);
+
+    assertThat(repository.findAll()).containsExactly(updatedArticle, otherArticle);
+    assertThat(count).isEqualTo(1);
+  }
+
+@Test
   @DisplayName("Deletes articles by SKU")
   void deletes_article_by_sku() {
     jdbcHelper.save(article);
