@@ -37,7 +37,7 @@ jobs:
           sleep 10 # TODO: loop/curl actuator health endpoint instead
           npm --prefix gui ci
           npm --prefix gui run -- webdriver-manager update --versions.chrome="$(google-chrome --version | cut -d ' ' -f 3)"
-          npm --prefix gui run e2e
+          npm --prefix gui run -- ng e2e --webdriver-update=false
   publish:
     name: Publish Docker image
     runs-on: ubuntu-latest
