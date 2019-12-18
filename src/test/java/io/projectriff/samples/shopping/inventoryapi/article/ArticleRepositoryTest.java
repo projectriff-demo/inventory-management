@@ -69,7 +69,8 @@ class ArticleRepositoryTest {
 
     int count = repository.updateQuantityBySku(article.getSku(), 12, 11);
 
-    Article updatedArticle = new Article("some SKU", "some name", "description", BigDecimal.TEN, null, 11);
+    Article updatedArticle = new Article(article.getSku(), article.getName(),
+      article.getDescription(), article.getPriceInUsd(), article.getImageUrl(), 11);
 
     assertThat(repository.findAll()).containsExactly(updatedArticle, otherArticle);
     assertThat(count).isEqualTo(1);
