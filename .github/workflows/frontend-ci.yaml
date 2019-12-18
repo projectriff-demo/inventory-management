@@ -36,8 +36,7 @@ jobs:
           mvn spring-boot:run &
           sleep 10 # TODO: loop/curl actuator health endpoint instead
           npm --prefix gui ci
-          echo $(google-chrome --version | cut -d ' ' -f 3)
-          npm --prefix gui run webdriver-manager update --versions.chrome=$(google-chrome --version | cut -d ' ' -f 3)
+          npm --prefix gui run -- webdriver-manager update --versions.chrome="$(google-chrome --version | cut -d ' ' -f 3)"
           npm --prefix gui run e2e
   publish:
     name: Publish Docker image
