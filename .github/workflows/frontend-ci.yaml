@@ -33,7 +33,7 @@ jobs:
           node-version: 13
       - name: Run e2e tests
         run: |
-          mvn spring-boot:run &
+          mvn -B -V spring-boot:run &
           npm --prefix gui ci
           npm --prefix gui run -- webdriver-manager update --versions.chrome="$(google-chrome --version | cut -d ' ' -f 3)"
           while [ "$(curl --request GET http://localhost:8080/actuator/health 2> /dev/null | jq --raw-output '.status')" != "UP" ]; do
