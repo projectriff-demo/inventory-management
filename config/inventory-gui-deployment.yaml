@@ -16,6 +16,6 @@ spec:
         app: inventory-gui
     spec:
       containers:
-        - image: tanzumkondo/inventory-gui
+        - image: projectriffdemo/inventory-gui
           imagePullPolicy: Always
           name: inventory-gui
