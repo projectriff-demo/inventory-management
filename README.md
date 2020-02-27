@@ -6,7 +6,29 @@
 This application is part of [riff](https://projectriff.io)'s shopping demo.
 It exposes an API and a GUI to manage the fictional shop's inventory.
 
-## Run
+## Build and Deploy with riff
+
+Build the app:
+
+```shell script
+riff application create inventory-api \
+  --git-repo https://github.com/projectriff-demo/inventory-management.git \
+  --tail
+```
+
+Deploy the app:
+
+```shell script
+riff core deployer create inventory-api --application-ref inventory-api \
+  --ingress-policy External \
+  --env SPRING_PROFILES_ACTIVE=cloud \
+  --env SPRING_DATASOURCE_URL=jdbc:postgresql://inventory-db-postgresql:5432/inventory \
+  --env SPRING_DATASOURCE_USERNAME=postgres \
+  --env-from SPRING_DATASOURCE_PASSWORD=secretKeyRef:inventory-db-postgresql:postgresql-password \
+  --tail
+```
+
+## Run locally
 
 Run `./start.sh` if you built the frontend before
 or run the following commands in separate terminals:
