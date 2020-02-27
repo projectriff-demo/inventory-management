@@ -20,6 +20,7 @@ Deploy the app:
 
 ```shell script
 riff knative deployer create inventory-api --application-ref inventory-api \
+  --min-scale 1 \
   --ingress-policy External \
   --env SPRING_PROFILES_ACTIVE=cloud \
   --env SPRING_DATASOURCE_URL=jdbc:postgresql://inventory-db-postgresql:5432/inventory \
