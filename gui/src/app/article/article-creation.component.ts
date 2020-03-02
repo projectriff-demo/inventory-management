@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {ArticleService} from './article.service';
-import {Subscription} from "rxjs";
-import {Router} from "@angular/router";
+import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-article-creation',
@@ -11,14 +11,22 @@ import {Router} from "@angular/router";
 })
 export class ArticleCreationComponent implements OnInit, OnDestroy {
 
-  creationForm;
-
-  private subscription: Subscription = null;
-
   constructor(private formBuilder: FormBuilder,
               private articleService: ArticleService,
               private router: Router) {
 
+  }
+
+  creationForm;
+
+  private subscription: Subscription = null;
+
+  static notBlank(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (value && value.trim().length > 0) {
+      return null;
+    }
+    return {notblank: value};
   }
 
   ngOnInit(): void {
@@ -60,13 +68,5 @@ export class ArticleCreationComponent implements OnInit, OnDestroy {
     if (this.subscription !== null) {
       this.subscription.unsubscribe();
     }
-  }
-
-  static notBlank(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (value && value.trim().length > 0) {
-      return null;
-    }
-    return {'notblank': value};
   }
 }

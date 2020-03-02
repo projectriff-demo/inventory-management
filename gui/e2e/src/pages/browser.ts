@@ -1,4 +1,4 @@
-import {browser, promise} from "protractor";
+import {browser, promise} from 'protractor';
 
 export class Browser {
 

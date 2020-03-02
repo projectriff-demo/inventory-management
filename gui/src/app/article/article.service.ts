@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Article} from './article';
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable, ReplaySubject} from "rxjs";
-import {filter, map} from "rxjs/operators";
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable, ReplaySubject} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

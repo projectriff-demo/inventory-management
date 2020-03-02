@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
 import {ArticleService} from './article.service';
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {Article} from "./article";
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {Article} from './article';
 
 describe('ArticleService', () => {
   let httpMock: HttpTestingController;
@@ -29,8 +29,8 @@ describe('ArticleService', () => {
       providers: [ArticleService]
     });
 
-    httpMock = TestBed.get(HttpTestingController);
-    service = TestBed.get(ArticleService);
+    httpMock = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(ArticleService);
   });
 
   afterEach(() => {
@@ -43,19 +43,19 @@ describe('ArticleService', () => {
     });
 
     const req = httpMock.expectOne(`/api/article/`);
-    expect(req.request.method).toBe("POST");
+    expect(req.request.method).toBe('POST');
     req.flush({
-      "sku": article1.sku,
-      "name": article1.name,
-      "description": article1.description,
-      "priceInUsd": article1.priceInUsd,
-      "quantity": article1.quantity,
-      "_links": {
-        "self": {
-          "href": "http://localhost:8080/api/article/1"
+      sku: article1.sku,
+      name: article1.name,
+      description: article1.description,
+      priceInUsd: article1.priceInUsd,
+      quantity: article1.quantity,
+      _links: {
+        self: {
+          href: 'http://localhost:8080/api/article/1'
         },
-        "article": {
-          "href": "http://localhost:8080/api/article/1"
+        article: {
+          href: 'http://localhost:8080/api/article/1'
         }
       }
     }, {
@@ -75,46 +75,46 @@ describe('ArticleService', () => {
     service.findAll();
 
     const req = httpMock.expectOne(`/api/article/`);
-    expect(req.request.method).toBe("GET");
+    expect(req.request.method).toBe('GET');
     req.flush({
-      "_embedded": {
-        "articles": [{
-          "sku": article1.sku,
-          "name": article1.name,
-          "description": article1.description,
-          "priceInUsd": article1.priceInUsd,
-          "imageUrl": article1.imageUrl,
-          "quantity": article1.quantity,
-          "_links": {
-            "self": {
-              "href": "http://localhost:8080/api/article/1"
+      _embedded: {
+        articles: [{
+          sku: article1.sku,
+          name: article1.name,
+          description: article1.description,
+          priceInUsd: article1.priceInUsd,
+          imageUrl: article1.imageUrl,
+          quantity: article1.quantity,
+          _links: {
+            self: {
+              href: 'http://localhost:8080/api/article/1'
             },
-            "article": {
-              "href": "http://localhost:8080/api/article/1"
+            article: {
+              href: 'http://localhost:8080/api/article/1'
             }
           }
         }, {
-          "sku": article2.sku,
-          "name": article2.name,
-          "description": article2.description,
-          "priceInUsd": article2.priceInUsd,
-          "quantity": article2.quantity,
-          "_links": {
-            "self": {
-              "href": "http://localhost:8080/api/article/2"
+          sku: article2.sku,
+          name: article2.name,
+          description: article2.description,
+          priceInUsd: article2.priceInUsd,
+          quantity: article2.quantity,
+          _links: {
+            self: {
+              href: 'http://localhost:8080/api/article/2'
             },
-            "article": {
-              "href": "http://localhost:8080/api/article/2"
+            article: {
+              href: 'http://localhost:8080/api/article/2'
             }
           }
         }]
       },
-      "_links": {
-        "self": {
-          "href": "http://localhost:8080/api/article"
+      _links: {
+        self: {
+          href: 'http://localhost:8080/api/article'
         },
-        "profile": {
-          "href": "http://localhost:8080/api/profile/article"
+        profile: {
+          href: 'http://localhost:8080/api/profile/article'
         }
       }
     }, {
@@ -131,7 +131,7 @@ describe('ArticleService', () => {
     });
     service.deleteBySku(sku);
 
-    const req = httpMock.expectOne(req => req.method === 'DELETE' && req.url === '/api/article/deleteBySku');
+    const req = httpMock.expectOne(r => r.method === 'DELETE' && r.url === '/api/article/deleteBySku');
     expect(req.request.params.get('sku')).toEqual(sku);
     req.flush(null, {
       headers: {
