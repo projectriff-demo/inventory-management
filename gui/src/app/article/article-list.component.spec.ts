@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ArticleListComponent} from './article-list.component';
-import {ArticleService} from "./article.service";
-import {ReplaySubject} from "rxjs";
-import {Article} from "./article";
-import {RouterTestingModule} from "@angular/router/testing";
+import {ArticleService} from './article.service';
+import {ReplaySubject} from 'rxjs';
+import {Article} from './article';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('ArticleListComponent', () => {
   let component: ArticleListComponent;

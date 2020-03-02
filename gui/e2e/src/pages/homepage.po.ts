@@ -1,7 +1,7 @@
 import {browser, by, element, promise} from 'protractor';
-import {Browsable} from "./nav.fragment";
-import {ArticleFormPage} from "./article-form.po";
-import {ArticleListPage} from "./article-list.po";
+import {Browsable} from './nav.fragment';
+import {ArticleFormPage} from './article-form.po';
+import {ArticleListPage} from './article-list.po';
 
 export class Homepage implements Browsable {
 

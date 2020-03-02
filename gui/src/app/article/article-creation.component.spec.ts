@@ -4,8 +4,8 @@ import {ArticleCreationComponent} from './article-creation.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ArticleService} from './article.service';
 import {Article} from './article';
-import {of} from "rxjs";
-import {Router} from "@angular/router";
+import {of} from 'rxjs';
+import {Router} from '@angular/router';
 
 describe('ArticleCreationComponent', () => {
   let component: ArticleCreationComponent;

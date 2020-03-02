@@ -1,12 +1,16 @@
-import {Browsable} from "./nav.fragment";
-import {ArticleFormPage} from "./article-form.po";
-import {Article} from "../../../src/app/article/article";
-import {by, element, ElementFinder, promise} from "protractor";
+import {Browsable} from './nav.fragment';
+import {ArticleFormPage} from './article-form.po';
+import {Article} from '../../../src/app/article/article';
+import {by, element, ElementFinder, promise} from 'protractor';
 
 export class ArticleListPage implements Browsable {
 
   constructor(private navigation: Browsable) {
 
+  }
+
+  private static locateArticle(article: Article): ElementFinder {
+    return element(by.id(`article-${article.sku.replace(' ', '-')}`));
   }
 
   navigateToFormPage(): promise.Promise<ArticleFormPage> {
@@ -25,9 +29,5 @@ export class ArticleListPage implements Browsable {
     return ArticleListPage.locateArticle(article).$('.delete-link')
       .click()
       .then(_ => this);
-  }
-
-  private static locateArticle(article: Article): ElementFinder {
-    return element(by.id(`article-${article.sku.replace(' ', '-')}`));
   }
 }

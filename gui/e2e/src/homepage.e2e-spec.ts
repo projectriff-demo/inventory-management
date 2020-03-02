@@ -1,7 +1,7 @@
 import {Homepage} from './pages/homepage.po';
 import {browser, logging} from 'protractor';
-import {NavFragment} from "./pages/nav.fragment";
-import {Article} from "../../src/app/article/article";
+import {NavFragment} from './pages/nav.fragment';
+import {Article} from '../../src/app/article/article';
 
 describe('workspace-project App', () => {
   let home: Homepage;
@@ -31,7 +31,7 @@ describe('workspace-project App', () => {
       .then(list => {
         expect(list.contains(article))
           .toBeTruthy('created article should be in the list');
-        return list.delete(article)
+        return list.delete(article);
       })
       .then(list => {
         expect(list.contains(article))
